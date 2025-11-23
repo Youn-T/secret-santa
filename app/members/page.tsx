@@ -62,15 +62,16 @@ export default function Create() {
                 <div className='w-250 h-135 flex gap-4 '>
                     <div id="memberList" className='w-full flex-2 flex flex-col gap-4'>
                         <h2 className='text-2xl text-red-700 font-bold mb-4 text-center festive-font'>Membres</h2>
-                        <div className='bg-green-50 rounded-xl overflow-y-auto shadow-inner border-2 border-green-700 scrollable p-1'>
-                            <li className='flex justify-between items-center bg-green-50 p-3 rounded-r-lg border-l-4 border-green-600 shadow-sm animate-fade-in transition-all hover:translate-x-1 '>
+                        <div className='relative bg-green-50 rounded-xl overflow-y-auto shadow-inner border-2 border-green-700 scrollable pt-2 z-0'>
+                            <div className=" absolute inset-x-0 top-0 h-full candy-stripe z-[-10]"></div>
+                            <li className='flex justify-between items-center bg-green-50 p-3  border-l-4 border-green-600 shadow-sm animate-fade-in transition-all hover:translate-x-1 '>
+                                 
                                 <span className="font-bold bg-green-50 flex items-center">
+                                    {/* <div className=" absolute inset-x-0 top-0 h-full candy-stripe z-[-10]"></div> */}
                                     <img src="https://api.dicebear.com/7.x/avataaars/svg" className="w-10 h-10 rounded-full bg-white object-cover mr-3 border-2 border-white shadow-sm" alt="${p.name}"></img>
                                     Vous
                                 </span>
-                                <button className="text-gray-400 hover:text-red-600 transition p-2 rounded-full hover:bg-white">
-                                    <X className="w-8 h-8"></X>
-                                </button>
+
                             </li>
 
 
@@ -80,7 +81,7 @@ export default function Create() {
                                 const bgClass = even ? 'bg-red-50' : 'bg-green-50';
                                 const borderClass = even ? 'border-red-600' : 'border-green-600';
                                 return (
-                                    <li key={index} className={`flex justify-between items-center ${bgClass} p-3 rounded-r-lg border-l-4 ${borderClass} shadow-sm animate-fade-in transition-all hover:translate-x-1`}>
+                                    <li key={index} className={`flex justify-between items-center ${bgClass} p-3  border-l-4 ${borderClass} shadow-sm animate-fade-in transition-all hover:translate-x-1`}>
                                         <span className={`font-bold ${bgClass} flex items-center`}>
                                             <img src={member.avatar} className="w-10 h-10 rounded-full bg-white object-cover mr-3 border-2 border-white shadow-sm" alt={member.name}></img>
                                             {member.name}
@@ -106,83 +107,90 @@ export default function Create() {
                                 </span>
                             </div> */}
                         </div>
-                        <div className='flex  gap-x-6  rounded-xl shadow-inner border-2 border-green-700'>
-                            <div className="w-full  border-r border-green-200 shadow-inner space-y-4 p-4 bg-green-50 rounded-xl">
-                                <h2 className='text-2xl text-red-700 font-bold mb-4 text-center festive-font'>Paramètres</h2>
+                        <div className=' rounded-xl shadow-inner border-2 border-green-700 overflow-hidden'> {/* gap-x-6 */}
 
-                                <div>
-                                    <div className='flex items-center text-green-800 text-sm font-bold'><label className="block text-green-800 text-sm font-bold mb-1"></label><Tag className="m-1 w-5 h-5"></Tag>Nom de l&apos;événement</div>
-                                    <input type="text" id="eventNameInput" className="input-christmas w-full px-3 py-2 rounded-lg text-gray-700" placeholder="Ex: Secret Santa 2025"></input>
-                                </div>
+                            <div className='flex   gap-x-2 flex relative z-10 pt-2'>
+                                <div className="w-full  border-t-2 border-r-2 border-green-700 shadow-inner space-y-4 p-4 bg-green-50 rounded-tr-xl ">
+                                <div className=" absolute inset-x-0 top-0 h-full candy-stripe z-[-10]"></div>
+                                    
+                                    <h2 className='text-2xl text-red-700 font-bold mb-4 text-center festive-font'>Paramètres</h2>
 
-
-
-                                <div className="flex gap-3">
-                                    <div className="w-1/2">
-                                        <div className='flex items-center text-green-800 text-sm font-bold'><label className="block text-green-800 text-sm font-bold mb-1"></label><Coins className="m-1 w-5 h-5"></Coins>Budget Max</div>
-                                        <input type="number" id="eventBudgetInput" className="input-christmas w-full px-3 py-2 rounded-lg text-gray-700" placeholder="Ex: 20"></input>
+                                    <div>
+                                        <div className='flex items-center text-green-800 text-sm font-bold'><label className="block text-green-800 text-sm font-bold mb-1"></label><Tag className="m-1 w-5 h-5"></Tag>Nom de l&apos;événement</div>
+                                        <input type="text" id="eventNameInput" className="input-christmas w-full px-3 py-2 rounded-lg text-gray-700" placeholder="Ex: Secret Santa 2025"></input>
                                     </div>
-                                    <div className="w-1/2">
-                                        <div className='flex items-center text-green-800 text-sm font-bold'><label className="block text-green-800 text-sm font-bold mb-1"></label><Calendar className="m-1 w-5 h-5"></Calendar>Date</div>
-                                        <input type="date" id="eventDateInput" className="input-christmas w-full px-3 py-2 rounded-lg text-gray-700"></input>
+
+
+
+                                    <div className="flex gap-3">
+                                        <div className="w-1/2">
+                                            <div className='flex items-center text-green-800 text-sm font-bold'><label className="block text-green-800 text-sm font-bold mb-1"></label><Coins className="m-1 w-5 h-5"></Coins>Budget Max</div>
+                                            <input type="number" id="eventBudgetInput" className="input-christmas w-full px-3 py-2 rounded-lg text-gray-700" placeholder="Ex: 20"></input>
+                                        </div>
+                                        <div className="w-1/2">
+                                            <div className='flex items-center text-green-800 text-sm font-bold'><label className="block text-green-800 text-sm font-bold mb-1"></label><Calendar className="m-1 w-5 h-5"></Calendar>Date</div>
+                                            <input type="date" id="eventDateInput" className="input-christmas w-full px-3 py-2 rounded-lg text-gray-700"></input>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div>
+                                    <div>
 
-                                    {/* <input type="checkbox" className="input-christmas w-full px-3 py-2 rounded-lg text-gray-700" placeholder="Ex: Noël des Copains 2025"></input> */}
-                                    {/* <div><input type="checkbox" id="adminToggle" className="toggle-checkbox"></input>
+                                        {/* <input type="checkbox" className="input-christmas w-full px-3 py-2 rounded-lg text-gray-700" placeholder="Ex: Noël des Copains 2025"></input> */}
+                                        {/* <div><input type="checkbox" id="adminToggle" className="toggle-checkbox"></input>
             <label htmlFor="adminToggle" className="toggle-label"></label></div> */}
-                                    <div className="flex items-center justify-between">
-                                        <div className='flex items-center text-green-800 text-sm font-bold'><label className="block text-green-800 text-sm font-bold mb-1"></label><Eye className="m-1 w-5 h-5"></Eye>L&apos;admin voit les tirages</div>
+                                        <div className="flex items-center justify-between">
+                                            <div className='flex items-center text-green-800 text-sm font-bold'><label className="block text-green-800 text-sm font-bold mb-1"></label><Eye className="m-1 w-5 h-5"></Eye>L&apos;admin voit les tirages</div>
 
-                                        <input type="checkbox" id="adminToggle" className="toggle-checkbox"></input>
-                                        <label htmlFor="adminToggle" className="toggle-label"></label>
+                                            <input type="checkbox" id="adminToggle" className="toggle-checkbox"></input>
+                                            <label htmlFor="adminToggle" className="toggle-label"></label>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div>
+                                    <div>
 
-                                    <div className="flex items-center justify-between">
-                                        <div className='flex items-center text-green-800 text-sm font-bold'><label className="block text-green-800 text-sm font-bold mb-1"></label><Vote className="m-1 w-5 h-5"></Vote>L&apos;admin participe au tirage</div>
+                                        <div className="flex items-center justify-between">
+                                            <div className='flex items-center text-green-800 text-sm font-bold'><label className="block text-green-800 text-sm font-bold mb-1"></label><Vote className="m-1 w-5 h-5"></Vote>L&apos;admin participe au tirage</div>
 
-                                        <input type="checkbox" id="adminParticipationToggle" className="toggle-checkbox"></input>
-                                        <label htmlFor="adminParticipationToggle" className="toggle-label"></label>
+                                            <input type="checkbox" id="adminParticipationToggle" className="toggle-checkbox"></input>
+                                            <label htmlFor="adminParticipationToggle" className="toggle-label"></label>
+                                        </div>
                                     </div>
+
+
+
                                 </div>
+                                {/* <div className=" w-6  candy-stripe "></div> */}
+                                <div className="w-full border-t-2 border-l-2 flex flex-col border-green-700 shadow-inner items-center justify-center p-4 bg-green-50 rounded-tl-xl">
+                                    <h2 className='text-2xl text-red-700 font-bold mb-4 text-center festive-font'>Partager</h2>
 
+                                    {/* QR Code Section */}
+                                    <div className="bg-white p-4 rounded-xl border-2 border-dashed border-green-200 inline-block mb-6 shadow-sm">
+                                        <img id="qr-code-img" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://youtu.be/dQw4w9WgXcQ?si=-uUffjrITlccQsFj" alt="QR Code" className="w-32 h-32 mx-auto opacity-80"></img>
+                                        <p className="text-xs text-gray-400 mt-2 font-mono">Scanner pour rejoindre</p>
+                                    </div>
 
+                                    {/* Actions */}
+                                    <div className="space-y-3 w-full">
+                                        <div className="flex items-center bg-gray-100 rounded-lg p-1 border border-gray-200">
+                                            <input value="https://youtu.be/dQw4w9WgXcQ?si=-uUffjrITlccQsFj" type="text" id="share-link-input" className="bg-transparent text-xs text-gray-600 w-full px-2 outline-none" readOnly></input>
+                                            <button className="bg-white text-green-700 px-3 py-2 rounded-md shadow-sm text-xs font-bold hover:text-green-800 border border-gray-100">
+                                                <Clipboard className="w-4 h-4"></Clipboard>
+                                            </button>
+                                        </div>
 
+                                        <div className="flex gap-2 justify-center mt-4">
+                                            <button className="flex-1 bg-[#25D366] text-white py-2 rounded-lg font-bold text-sm hover:opacity-90 shadow-md transition-transform active:scale-95">
+                                                <i className="fab fa-whatsapp mr-2"></i> WhatsApp
+                                            </button>
+                                            <button className="flex-1 bg-blue-500 text-white py-2 rounded-lg font-bold text-sm hover:opacity-90 shadow-md transition-transform active:scale-95">
+                                                <i className="fas fa-envelope mr-2"></i> Email
+                                            </button>
+                                        </div>
+                                    </div>
+                                    {/* <button className='mt-6 w-full btn-christmas text-white font-bold px-6 py-3 rounded-xl shadow-lg text-lg uppercase tracking-wider flex items-center justify-center gap-3'></button> */}
+                                </div>
                             </div>
-                            <div className="w-full  flex flex-col border-green-200 shadow-inner items-center justify-center p-4 bg-green-50 rounded-xl">
-                                <h2 className='text-2xl text-red-700 font-bold mb-4 text-center festive-font'>Partager</h2>
 
-                                {/* QR Code Section */}
-                                <div className="bg-white p-4 rounded-xl border-2 border-dashed border-green-200 inline-block mb-6 shadow-sm">
-                                    <img id="qr-code-img" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://youtu.be/dQw4w9WgXcQ?si=-uUffjrITlccQsFj" alt="QR Code" className="w-32 h-32 mx-auto opacity-80"></img>
-                                    <p className="text-xs text-gray-400 mt-2 font-mono">Scanner pour rejoindre</p>
-                                </div>
-
-                                {/* Actions */}
-                                <div className="space-y-3 w-full">
-                                    <div className="flex items-center bg-gray-100 rounded-lg p-1 border border-gray-200">
-                                        <input value="https://youtu.be/dQw4w9WgXcQ?si=-uUffjrITlccQsFj" type="text" id="share-link-input" className="bg-transparent text-xs text-gray-600 w-full px-2 outline-none" readOnly></input>
-                                        <button className="bg-white text-green-700 px-3 py-2 rounded-md shadow-sm text-xs font-bold hover:text-green-800 border border-gray-100">
-                                            <Clipboard className="w-4 h-4"></Clipboard>
-                                        </button>
-                                    </div>
-
-                                    <div className="flex gap-2 justify-center mt-4">
-                                        <button className="flex-1 bg-[#25D366] text-white py-2 rounded-lg font-bold text-sm hover:opacity-90 shadow-md transition-transform active:scale-95">
-                                            <i className="fab fa-whatsapp mr-2"></i> WhatsApp
-                                        </button>
-                                        <button className="flex-1 bg-blue-500 text-white py-2 rounded-lg font-bold text-sm hover:opacity-90 shadow-md transition-transform active:scale-95">
-                                            <i className="fas fa-envelope mr-2"></i> Email
-                                        </button>
-                                    </div>
-                                </div>
-                                {/* <button className='mt-6 w-full btn-christmas text-white font-bold px-6 py-3 rounded-xl shadow-lg text-lg uppercase tracking-wider flex items-center justify-center gap-3'></button> */}
-                            </div>
 
 
 
