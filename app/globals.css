@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@400;700&display=swap');
 @import "tailwindcss";
 
 :root {
@@ -24,3 +25,177 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.candy-stripe {
+  background: repeating-linear-gradient(45deg,
+      #c53030,
+      #c53030 10px,
+      #fbd38d 10px,
+      #fbd38d 20px);
+}
+
+.snowflake {
+  position: absolute;
+  top: -10px;
+  color: #fff;
+  font-size: 1em;
+  text-shadow: 0 0 5px #000;
+  animation-name: fall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.snow-layer {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+  /* Derrière le contenu qui aura z-index > 0 */
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(100vh);
+  }
+}
+
+.btn-christmas {
+  background-color: #c53030;
+  transition: all 0.3s ease;
+}
+
+.btn-christmas:hover {
+  background-color: #9b2c2c;
+  transform: scale(1.05);
+}
+
+.input-christmas {
+  border: 2px solid #2f855a;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.input-christmas:focus {
+  border-color: #c53030;
+  box-shadow: 0 0 0 3px rgba(197, 48, 48, 0.3);
+}
+
+
+.toggle-checkbox {
+  appearance: none;
+  display: none;
+}
+
+.toggle-label {
+  width: 50px;
+  height: 26px;
+  background: #2f855a;
+  border-radius: 9999px;
+  position: relative;
+  cursor: pointer;
+  transition: background 0.3s;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.toggle-label::after {
+  content: '';
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border-radius: 50%;
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  transition: transform 0.3s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.toggle-checkbox:checked+.toggle-label {
+  background: #c53030;
+  /* Red Christmas */
+}
+
+.toggle-checkbox:checked+.toggle-label::after {
+  transform: translateX(24px);
+}
+
+
+.festive-font {
+  font-family: 'Mountains of Christmas', cursive;
+}
+
+
+.scrollable::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollable {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+
+
+/* The switch - the box around the slider
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked+.slider {
+  background-color: #c53030;
+}
+
+input:focus+.slider {
+  box-shadow: 0 0 1px #c53030;
+}
+
+input:checked+.slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+*/
