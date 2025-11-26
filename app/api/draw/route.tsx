@@ -1,10 +1,13 @@
 import { NextResponse } from 'next/server';
 import { dbConnect } from '@/lib/dbConnect';
+import { EmailTemplate } from '../../../components/email-template';
+import { Resend } from 'resend';
+import * as React from 'react';
 import dotenv from 'dotenv';
 import { auth } from '@/auth';
 import { Db, ObjectId } from 'mongodb';
 import { use } from 'react';
-
+const resend = new Resend(process.env.RESEND_API_KEY);
 dotenv.config();
 
 const SECRET_SANTA_COLLECTION = process.env.SECRET_SANTA_COLLECTION;
@@ -79,11 +82,48 @@ export async function POST(request: Request) {
         collection.updateOne({ id: groupId }, { $set: { draw: pairs } })
 
         const formatedPairs = [];
-        pairs.forEach(pair => {
+        pairs.forEach(async pair => {
             const giver = membersData.find(user => user.id == pair.giver)
             const reciever = membersData.find(user => user.id == pair.reciever)
             // console.log(giver, reciever);
             formatedPairs.push({ giver: { name: giver?.name || 'Utilisateur inconnu', avatar: giver?.avatar || '', id: pair.giver }, reciever: { name: reciever?.name || 'Utilisateur inconnu', avatar: reciever?.avatar || '', id: pair.reciever } })
+            // fetch('/api/mails', {
+            //     method: 'POST',
+            //     headers: { 'Content-Type': 'application/json' },
+            //     body: 
+            // }).then(res => {
+            //     if (!res.ok) {
+            //         console.error('Erreur lors de l\'envoi de l\'email');
+            //     }
+            // }).catch(err => {
+            //     console.error('Erreur lors de l\'envoi de l\'email', err);
+            // });
+
+
+            // fetch('/api/mails', {
+            //     method: 'POST',
+            //     headers: { 'Content-Type': 'application/json' },
+            //     body: JSON.stringify({ mail: giver?.mail, firstName: giver?.name, recieverName: reciever?.name }),
+            // }).then(async (res) => {
+            //     // if (!res.ok) throw new Error('Échec de la suppression');
+            //     const { members } = await res.json(); // l’API doit renvoyer { id }
+            //     console.log(members);
+            // });
+            if (giver?.mail && reciever?.name && giver?.name) {
+                console.log('Envoi du mail à ', giver?.mail);
+                const { data, error } = await resend.emails.send({
+                    from: 'Acme <onboarding@resend.dev>',
+                    to: [giver?.mail],
+                    subject: 'Hello world',
+                    // eslint-disable-next-line react-hooks/error-boundaries
+                    react: <EmailTemplate name={giver?.name} recieverName={reciever?.name} eventName={secret_santa.name} eventBudget={secret_santa.budget} eventDate={secret_santa.date} recieverAvatar={reciever?.avatar} />,
+                });
+                console.log('Email sent from Resend: ', data, error);
+                if (error) {
+                    return NextResponse.json({ message: 'Erreur lors du tirage' },
+                        { status: 500 });
+                }
+            }
         })
 
 
