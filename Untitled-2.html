@@ -1,0 +1,106 @@
+<nav className="opaque-nav fixed w-full z-50 px-6 py-4 flex justify-between items-center transition-all duration-300">
+    <div className="flex items-center gap-3">
+        <div
+            className="bg-white text-red-700 w-10 h-10 rounded-full flex items-center justify-center shadow-lg border-2 border-red-700">
+            <i className="fas fa-sleigh text-xl"></i>
+        </div>
+        <span className="text-2xl font-bold festive-font tracking-wide hidden sm:block text-white drop-shadow-md">Secret
+            Santa</span>
+    </div>
+
+    <div id="auth-section">
+        <div id="logged-out-view" className="flex gap-4">
+            <button onclick="handleLogin()" className="text-sm font-bold hover:text-red-300 transition px-2">
+                Connexion
+            </button>
+            <button onclick="handleRegister()"
+                className="btn-primary text-white px-5 py-2 rounded-full text-sm font-bold shadow-lg">
+                S'inscrire
+            </button>
+        </div>
+
+        <div id="logged-in-view" className="hidden flex items-center gap-4">
+            <div className="flex items-center gap-2 text-right">
+                <div className="hidden md:block">
+                    <p className="text-xs text-green-200">Joyeux Noël,</p>
+                    <p className="text-sm font-bold" id="user-name-display">Lutin Chef</p>
+                </div>
+                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Santa"
+                    className="w-10 h-10 rounded-full border-2 border-red-500 bg-white" alt="Avatar">
+            </div>
+            <button onclick="handleLogout()" className="text-white hover:text-red-300 transition" title="Déconnexion">
+                <i className="fas fa-sign-out-alt text-xl"></i>
+            </button>
+        </div>
+    </div>
+</nav>
+
+<header className="relative flex-grow flex items-center justify-center text-center px-4 pt-32 pb-12 z-10">
+    <div className="max-w-4xl mx-auto animate-fade-in">
+        <div
+            className="inline-block px-4 py-1 rounded-full bg-red-600/30 border border-red-400 text-red-100 text-sm font-bold mb-6 backdrop-blur-sm">
+            🎄 L'outil n°1 du Pôle Nord
+        </div>
+        <h1 className="text-6xl md:text-8xl font-bold mb-6 drop-shadow-lg leading-tight">
+            Organisez votre <br>
+            <span className="text-red-500 text-shadow-white">Secret Santa</span> <br>
+            en un clic !
+        </h1>
+        <p className="text-xl md:text-2xl text-green-100 mb-10 max-w-2xl mx-auto font-light">
+            Fini les papiers tirés au sort. Créez votre événement, invitez vos amis et laissez la magie (et l'IA) faire
+            le reste.
+        </p>
+
+        <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <a href="secret_santa.html"
+                className="btn-primary text-white px-8 py-4 rounded-full text-xl font-bold shadow-xl flex items-center justify-center gap-3">
+                <i className="fas fa-magic"></i> Commencer
+            </a>
+            <button onclick="scrollToFeatures()"
+                className="btn-outline px-8 py-4 rounded-full text-xl font-bold shadow-xl">
+                Comment ça marche ?
+            </button>
+        </div>
+    </div>
+</header>
+
+<section id="features" className="py-20 px-4 relative z-10">
+    <div className="max-w-6xl mx-auto">
+        <h2 className="text-4xl text-center mb-16 font-bold festive-font text-green-100">La magie en 3 étapes</h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Card 1 -->
+            <div className="feature-card p-8 rounded-2xl shadow-2xl border-b-8 border-red-600">
+                <div
+                    className="w-14 h-14 bg-red-100 rounded-full flex items-center justify-center mb-6 text-red-600 text-2xl shadow-inner">
+                    <i className="fas fa-users-cog"></i>
+                </div>
+                <h3 className="text-2xl font-bold mb-3 text-green-900">1. Créez</h3>
+                <p className="text-gray-600">Configurez votre événement : nom, date, budget et thème. Ajoutez les
+                    participants manuellement ou partagez le lien.</p>
+            </div>
+
+            <!-- Card 2 -->
+            <div className="feature-card p-8 rounded-2xl shadow-2xl border-b-8 border-green-600">
+                <div
+                    className="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mb-6 text-green-600 text-2xl shadow-inner">
+                    <i className="fas fa-hat-wizard"></i>
+                </div>
+                <h3 className="text-2xl font-bold mb-3 text-green-900">2. Tirez au sort</h3>
+                <p className="text-gray-600">Notre algorithme garantit que personne ne tombe sur soi-même. L'IA suggère
+                    même des idées de cadeaux !</p>
+            </div>
+
+            <!-- Card 3 -->
+            <div className="feature-card p-8 rounded-2xl shadow-2xl border-b-8 border-yellow-500">
+                <div
+                    className="w-14 h-14 bg-yellow-100 rounded-full flex items-center justify-center mb-6 text-yellow-600 text-2xl shadow-inner">
+                    <i className="fas fa-gifts"></i>
+                </div>
+                <h3 className="text-2xl font-bold mb-3 text-green-900">3. Offrez</h3>
+                <p className="text-gray-600">Révélez les résultats ensemble ou à distance. Échangez les cadeaux le jour
+                    J et profitez de la fête.</p>
+            </div>
+        </div>
+    </div>
+</section>

@@ -24,6 +24,8 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  scroll-behavior: smooth;
+
 }
 
 .candy-stripe {
@@ -72,6 +74,16 @@ body {
 .btn-christmas:hover {
   background-color: #9b2c2c;
   transform: scale(1.05);
+}
+
+.btn-christmas-v {
+  background-color: #c53030;
+  transition: all 0.3s ease;
+}
+
+.btn-christmas-v:hover {
+  background-color: #9b2c2c;
+  transform: scaleY(1.05);
 }
 
 .input-christmas {
@@ -125,7 +137,7 @@ body {
 }
 
 
-.festive-font {
+h1 , h2 , .festive-font {
   font-family: 'Mountains of Christmas', cursive;
 }
 
@@ -141,7 +153,67 @@ body {
   /* Firefox */
 }
 
+.secret-santa-card {
+  transition: all 0.3s ease;
+}
 
+.secret-santa-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+
+}
+
+
+.secret-santa-card {
+  transition: all 0.3s ease;
+}
+
+.secret-santa-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: scale(1.05);
+}
+
+
+.opaque-nav {
+  /* Même couleur que le body pour l'opacité */
+  /* border-bottom: 3px solid #c53030; */
+  /* Bordure rouge festive */
+  /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); */
+  /* Ombre pour détacher du contenu */
+}
+
+.btn-primary {
+  background-color: #c53030;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #9b2c2c;
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(197, 48, 48, 0.5);
+}
+
+.btn-outline {
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.btn-outline:hover {
+  background: white;
+  color: #1a4731;
+}
+
+.feature-card {
+  background: rgba(255, 255, 255, 0.95);
+  color: #1a4731;
+  transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-10px);
+}
 
 /* The switch - the box around the slider
 .switch {

@@ -6,10 +6,15 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "bdd_init": "node bdd_init.js"
   },
+  "type": "module",
   "dependencies": {
+    "@auth/mongodb-adapter": "^3.11.1",
+    "mongodb": "^6.21.0",
     "next": "16.0.3",
+    "next-auth": "^5.0.0-beta.30",
     "react": "19.2.0",
     "react-dom": "19.2.0"
   },
