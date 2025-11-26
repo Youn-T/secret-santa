@@ -12,6 +12,7 @@ const host = process.env.NEXT_PUBLIC_HOST || 'http://localhost:3000';
 export default function Create() {
 
     const [isMobile, setIsMobile] = useState(false);
+    const [showDrawPopup, setShowDrawPopup] = useState(false);
 
     useEffect(() => {
         if (navigator) setIsMobile(MOBILE.test(navigator.userAgent));
@@ -33,6 +34,7 @@ export default function Create() {
     const [adminParticipates, setAdminParticipates] = useState(false);
     const [groupId, setGroupId] = useState('');
     const [loading, setLoading] = useState(true);
+    const [drawData, setDrawData] = useState([]);
     const router = useRouter();
 
     useEffect(() => {
@@ -116,6 +118,23 @@ export default function Create() {
         });
     }
 
+    function draw() {
+        console.log('Drawing...');
+        fetch('/api/draw', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ groupId }),
+        }).then(async (res) => {
+            // if (!res.ok) throw new Error('Échec du tirage');
+            const data = await res.json(); // l’API doit renvoyer { id }
+            console.log(data);
+            setDrawData(data.pairs);
+            // setShowDrawPopup(false); // Fermer la popup après le tirage
+        });
+        console.log('Drawing2...');
+
+    }
+
     function updateGroup({ name_ = name, budget_ = budget, date_ = date, adminSeesDraws_ = adminSeesDraws, adminParticipates_ = adminParticipates } = {}) {
         console.log(budget);
         fetch('/api/update_group', {
@@ -160,7 +179,7 @@ export default function Create() {
 
             <div className="h-2 w-full absolute top-0 left-0 candy-stripe z-10"></div>
             {loading && <h1 className='text-6xl md:text-8xl text-white font-bold mb-6 drop-shadow-lg leading-tight'>Loading...</h1>}
-            {!loading && <div
+            {!loading && <><div
                 id="screen-setup"
                 className="bg-white rounded-2xl shadow-2xl p-6 relative z-10 overflow-hidden"
                 style={{ border: '3px solid #c53030' }}
@@ -363,9 +382,9 @@ export default function Create() {
                                                 onClick={() => navigator.clipboard.writeText(`${host}/invite_link?groupId=${groupId}`)}>
                                                 <Link className="w-4 h-4 mr-2"></Link> Link
                                             </button>
-                                            <button className="flex-1 flex bg-blue-500 text-white items-center justify-center py-2 rounded-lg font-bold text-sm hover:opacity-90 shadow-md transition-transform active:scale-95">
-                                                <Mail className="w-4 h-4 mr-2"></Mail> Email
-                                            </button></>}
+                                                <button className="flex-1 flex bg-blue-500 text-white items-center justify-center py-2 rounded-lg font-bold text-sm hover:opacity-90 shadow-md transition-transform active:scale-95">
+                                                    <Mail className="w-4 h-4 mr-2"></Mail> Email
+                                                </button></>}
                                             {isMobile && <button className="flex-1 flex bg-blue-500 text-white items-center justify-center py-2 rounded-lg font-bold text-sm hover:opacity-90 shadow-md transition-transform active:scale-95"
                                                 onClick={() => {
                                                     if (navigator.share) {
@@ -388,16 +407,90 @@ export default function Create() {
 
 
                         </div>
-                        <button className="mt-4 w-full btn-christmas-v text-white font-bold px-6 py-3 rounded-xl shadow-lg text-lg uppercase tracking-wider flex items-center justify-center gap-3"
+                        <button className="mt-4 w-full btn-christmas-v text-white font-bold px-6 py-3 rounded-xl shadow-lg text-lg uppercase tracking-wider flex items-center justify-center gap-3" onClick={() => setShowDrawPopup(true)}
                         >
-                            Faire un tirage
+                            {drawData.length === 0 ? "Faire un tirage" : "Refaire un tirage/Voir les résultats"}
                             <Gift></Gift>
                         </button>
                     </div>
 
                 </div>
 
-            </div>}
+            </div>
+
+                {/* Popup de confirmation */}
+                {showDrawPopup && (
+                    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4" 
+                    // onClick={() => setShowDrawPopup(false)}
+                    >
+                        <div
+                            className="bg-white rounded-2xl shadow-2xl p-6 relative overflow-hidden max-w-md w-full animate-fade-in"
+                            style={{ border: '3px solid #c53030' }}
+                        >
+                            {/* Candy Stripe Header */}
+                            <div className="h-2 w-full absolute top-0 left-0 candy-stripe"></div>
+
+                            {drawData.length === 0 && <><h3 className="text-2xl text-red-700 font-bold mb-4 text-center festive-font mt-2">Lancer le tirage ?</h3>
+
+                                <p className="text-gray-600 text-center mb-6 font-medium">
+                                    Êtes-vous sûr de vouloir lancer le tirage au sort ? <br />
+                                    <span className="text-sm text-gray-500">Chaque participant recevra son destinataire par email.</span>
+                                    {adminSeesDraws && <div id="admin-indicator" className="mt-2">
+                                        <span className="bg-red-100 text-red-800 text-xs px-2 py-1 rounded-full border border-red-200 font-bold">
+                                            <Eye className="w-4 h-4 inline-block mr-1"></Eye> Admin visible
+                                        </span>
+                                    </div>}
+                                </p>
+
+                                <div className="flex gap-4 justify-center">
+                                    <button
+                                        onClick={() => draw()}
+                                        className="px-5 py-2 rounded-xl font-bold text-white bg-red-600 hover:bg-red-700 shadow-md transition-colors flex items-center gap-2 border-2 border-red-700 btn-christmas"
+                                    >
+                                        <Gift className="w-4 h-4" />
+                                        Confirmer
+                                    </button>
+                                    <button
+                                        onClick={() => setShowDrawPopup(false)}
+                                        className="px-5 py-2 rounded-xl font-bold text-gray-600 bg-gray-100 border-2 border-gray-200 hover:bg-gray-200 transition-colors"
+                                    >
+                                        Annuler
+                                    </button>
+
+                                </div></>}
+                            {
+                                drawData.length > 0 && <><h3 className="text-2xl text-red-700 font-bold mb-4 text-center festive-font mt-2">{adminSeesDraws ? "Résultats du Tirage" : "Tirage effectué"}</h3>
+                                    {adminSeesDraws && drawData.map((pair, i) => {
+                                        return (<div key={i} className={`${i % 2 === 0 ? "bg-green-50" : "bg-red-50"} p-4  mb-3 border-l-4 ${i % 2 === 0 ? "border-green-600" : "border-red-600"} shadow-sm flex justify-between items-center`}>
+                                            <span className={`font-bold text-${i % 2 === 0 ? "green" : "red"}-800`}><img src={pair.giver.avatar} alt={pair.giver.name} className="inline-block w-6 h-6 rounded-full mr-2" />{pair.giver.name}</span>
+                                            <span className="text-gray-600">→</span>
+                                            <span className={`font-bold text-${i % 2 === 0 ? "red" : "green"}-800`}><img src={pair.reciever.avatar} alt={pair.reciever.name} className="inline-block w-6 h-6 rounded-full mr-2" />{pair.reciever.name}</span>
+                                        </div>
+                                        )
+                                    })}
+                                    <div className="flex gap-4 justify-center">
+                                        <button
+                                            onClick={() => setShowDrawPopup(false)}
+                                            className="px-5 py-2 rounded-xl font-bold text-white bg-red-600 hover:bg-red-700 shadow-md transition-colors flex items-center gap-2 border-2 border-red-700 btn-christmas"
+                                        >
+                                            <Gift className="w-4 h-4" />
+                                            Okay
+                                        </button>
+                                        <button
+                                            onClick={() => setDrawData([])}
+                                            className="px-5 py-2 rounded-xl font-bold text-gray-600 bg-gray-100 border-2 border-gray-200 hover:bg-gray-200 transition-colors"
+                                        >
+                                            Refaire Un Tirage
+                                        </button>
+
+                                    </div>
+                                </>
+
+                            }
+                        </div>
+                    </div>
+                )}
+            </>}
         </div>
     );
 }
